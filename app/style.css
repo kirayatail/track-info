@@ -11,10 +11,10 @@ p {
 .columns-container {
   display: flex;
   width: 100%;
-  height: 1080px;
+  height: 900px;
   justify-content: center;
   align-items: center;
-  transform: perspective(2000px) scale(2);
+  transform: translate3d(0,0,0) perspective(2000px) scale(1.5);
   transform-origin: 50% 50% 2000px;
 }
 
@@ -23,11 +23,11 @@ p {
 }
 
 .columns-container.in {
-  transform: perspective(2000px) rotateY(-120deg) scale(2);
+  transform: translate3d(0,0,0) perspective(2000px) rotateY(-120deg) scale(1.5);
 }
 
 .columns-container.out {
-  transform: perspective(2000px) rotateY(120deg) scale(2);
+  transform: translate3d(0,0,0) perspective(2000px) rotateY(120deg) scale(1.5);
 }
 
 .info {
@@ -40,8 +40,8 @@ p {
 }
 
 .albumart #albumart {
-  width: 700px;
-  height: 700px;
+  width: 600px;
+  height: 600px;
   transform: perspective(1300px) rotateY(10deg);
 }
 .column {
