@@ -2,11 +2,8 @@ body {
   background-color: #000;
   color: #fff;
   font-family: sans-serif;
-<<<<<<< 7219c8f8783d103da9c00992adf72cbd4f3590e7
   cursor: none;
   margin: 0;
-=======
->>>>>>> Change transition animation to a scale/opacity combination.
 }
 
 p {
@@ -15,13 +12,9 @@ p {
 .columns-container {
   cursor: none;
   display: flex;
-<<<<<<< 7219c8f8783d103da9c00992adf72cbd4f3590e7
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-=======
-  width: 100%;
->>>>>>> Change transition animation to a scale/opacity combination.
   justify-content: center;
   align-items: center;
   transform: scale(1);
