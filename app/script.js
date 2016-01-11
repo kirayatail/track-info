@@ -19,40 +19,19 @@ function equals(a,b) {
 
 function update(data) {
   track = data;
-  moveOut();
+  $('.columns-container').addClass('hide');
   if(data && (data.albumArtURI || data.album || data.artist || data.title)) {
     setTimeout(function() {
+      $('.columns-container').css('height',screen.height+'px');
       $('#albumart').attr('src', data.albumArtURI);
       $('#title').text(data.title);
       $('#artist').text(data.artist);
       $('#album').text(data.album);
-      moveIn();
-    },2010);
-  }
-}
-
-function moveOut() {
-  $('.columns-container').addClass('animate');
-  setTimeout(function() {
-    $('.columns-container').addClass('out');
-    setTimeout(function() {
-      $('.columns-container').removeClass('animate');
-    }, 2000);
-  }, 10);
-}
-
-function moveIn() {
-  $('.columns-container').addClass('in');
-  $('.columns-container').removeClass('out');
-  setTimeout(function() {
-    $('.columns-container').addClass('animate');
-    setTimeout(function() {
-      $('.columns-container').removeClass('in');
       setTimeout(function() {
-        $('.columns-container').removeClass('animate');
-      }, 2000);
-    }, 10);
-  }, 10);
+        $('.columns-container').removeClass('hide');
+      }, 10);
+    },1510);
+  }
 }
 
 fetch();
