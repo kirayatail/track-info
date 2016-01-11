@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <title>What's playing?</title>
+  <style type="text/css">
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: sans-serif;
+
+    }
+
+    p {
+      text-align: center;
+    }
+    .columns-container {
+      display: flex;
+      width: 100%;
+      height: 1080px;
+      justify-content: center;
+      align-items: center;
+      transform: perspective(2000px) scale(2);
+      transform-origin: 50% 50% 2000px;
+    }
+
+    .columns-container.animate {
+      transition: transform 2s ease-in-out;
+    }
+
+    .columns-container.in {
+      transform: perspective(2000px) rotateY(-120deg) scale(2);
+    }
+
+    .columns-container.out {
+      transform: perspective(2000px) rotateY(120deg) scale(2);
+    }
+
+    .info {
+      font-size: 35px;
+      margin: 0.5em 0;
+    }
+
+    .title {
+      font-size: 45px;
+    }
+
+    .albumart #albumart {
+      width: 700px;
+      height: 700px;
+      transform: perspective(1300px) rotateY(10deg);
+    }
+    .column {
+      margin-left: 5em;
+      width: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transform: perspective(1300px) rotateY(-10deg);
+    }
+  </style>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+  <div class="columns-container">
+    <div class="albumart">
+      <img id="albumart" />
+    </div>
+    <div class="column">
+      <p class="title" id="title"></p>
+      <p class="info" id="artist"></p>
+      <p class="info" id="album"></p>
+    </div>
+  </div>
+</body>
