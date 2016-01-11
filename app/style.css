@@ -14,7 +14,7 @@ p {
   height: 900px;
   justify-content: center;
   align-items: center;
-  transform: translate3d(0,0,0) perspective(2000px) scale(1.5);
+  transform: translate3d(0,0,0) perspective(2000px) scale(1.8);
   transform-origin: 50% 50% 2000px;
 }
 
@@ -23,11 +23,11 @@ p {
 }
 
 .columns-container.in {
-  transform: translate3d(0,0,0) perspective(2000px) rotateY(-120deg) scale(1.5);
+  transform: translate3d(0,0,0) perspective(2000px) rotateY(-120deg) scale(1.8);
 }
 
 .columns-container.out {
-  transform: translate3d(0,0,0) perspective(2000px) rotateY(120deg) scale(1.5);
+  transform: translate3d(0,0,0) perspective(2000px) rotateY(120deg) scale(1.8);
 }
 
 .info {
