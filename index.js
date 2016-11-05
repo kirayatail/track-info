@@ -24,7 +24,7 @@ app.route('/track')
 
     device.ds.currentTrackDetails(function(error, result) {
       var response = {};
-      var body = result.metadata || null;
+      var body = result && result.metadata ? result.metadata : null;
       if(!error && body) {
         var albumart = '',
         album = '',
