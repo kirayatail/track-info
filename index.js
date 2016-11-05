@@ -1,28 +1,30 @@
 'use strict';
 var express = require('express');
 var request = require('request');
+var odm = require('openhome-devices-manager');
 var app = express();
 
-// IP for the media player. Make sure it's a string (surrounded with quotes).
-var host = '192.168.1.67';
+// Edit this value to point to your device name
+var deviceName = 'Main Room'
 
+var device = {};
 
 app.route('/track')
   .get(function(req, res) {
-    var response = {};
-    var uri = 'http://'+host+'/Ds/Info/control';
-    var options = {
-      uri: uri,
-      method: 'POST',
 
-      headers: {
-        SOAPAction: 'urn:av-openhome.org:service:Info:1#Track',
-        'content-type': 'text/xml'
-      },
-      body: '<?xml version="1.0"?><s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><u:Track xmlns:u="urn:av-openhome.org:service:Info:1"></u:Track></s:Body></s:Envelope>'
-    };
+    if(!device.name && !findDevice()) {
 
-    request(options, function(error, r, body) {
+      return res.status(200).send({
+        albumArtURI: '',
+        title: '',
+        artist: '',
+        album: ''
+      });
+    }
+
+    device.ds.currentTrackDetails(function(error, result) {
+      var response = {};
+      var body = result.metadata || null;
       if(!error && body) {
         var albumart = '',
         album = '',
@@ -33,8 +35,8 @@ app.route('/track')
           albumart = resizeTidal(
             deescape(
               body.split('upnp:albumArtURI')[1]
-              .split('&gt;')[1]
-              .split('&lt;')[0]
+              .split('>')[1]
+              .split('<')[0]
             )
           );
         }
@@ -42,20 +44,20 @@ app.route('/track')
         if(body.indexOf('upnp:album ') !== -1) {
           album = deescape(
             body.split('upnp:album ')[1]
-            .split('&gt;')[1]
-            .split('&lt;/upnp:album')[0]
+            .split('>')[1]
+            .split('</upnp:album')[0]
           );
         }
 
         if(body.indexOf('upnp:artist') !== -1) {
           artist = deescape(
-            body.split('&lt;upnp:artist')[1].split('&gt;')[1].split('&lt;/upnp:artist')[0]
+            body.split('<upnp:artist')[1].split('>')[1].split('</upnp:artist')[0]
           );
         }
 
-        if(body.indexOf('&lt;dc:title') !== -1) {
+        if(body.indexOf('<dc:title') !== -1) {
           title = deescape(
-            body.split('&lt;dc:title')[1].split('&gt;')[1].split('&lt;/dc:title')[0]
+            body.split('<dc:title')[1].split('>')[1].split('</dc:title')[0]
           );
         }
 
@@ -73,9 +75,7 @@ app.route('/track')
         response.title = 'Million Miles [Dummy Data]';
       }
       res.status(200).send(response);
-
     });
-
   });
 
 app.use(express.static('app'));
@@ -86,6 +86,20 @@ var resizeTidal = function(url) {
   } else {
     return url;
   }
+}
+
+var findDevice = function() {
+  var dev;
+  var devs = odm.getDevices();
+  while(!(dev = devs.next()).done) {
+    if(dev.value) {
+      if(odm.getDevice(dev.value).name.indexOf(deviceName) > -1) {
+        device = odm.getDevice(dev.value);
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 var deescape = function(a) {
