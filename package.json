@@ -1,5 +1,5 @@
 {
-  "name": "track-display",
+  "name": "track-info",
   "version": "2.0.0",
   "description": "A simple display app working with Linn SOAP API",
   "main": "index.js",
