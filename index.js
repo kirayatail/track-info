@@ -23,16 +23,16 @@ app.route('/track')
     }
 
     device.ds.currentTrackDetails(function(error, result) {
-      var response = {};
+      var response = {
+        albumArtURI: '',
+        title: '',
+        artist: '',
+        album: ''
+      };
       var body = result && result.metadata ? result.metadata : null;
       if(!error && body) {
-        var albumart = '',
-        album = '',
-        artist = '',
-        title = '';
-
         if(body.indexOf('upnp:albumArtURI') !== -1) {
-          albumart = resizeTidal(
+          response.albumArtURI = resizeTidal(
             deescape(
               body.split('upnp:albumArtURI')[1]
               .split('>')[1]
@@ -42,7 +42,7 @@ app.route('/track')
         }
 
         if(body.indexOf('upnp:album ') !== -1) {
-          album = deescape(
+          response.album = deescape(
             body.split('upnp:album ')[1]
             .split('>')[1]
             .split('</upnp:album')[0]
@@ -50,29 +50,17 @@ app.route('/track')
         }
 
         if(body.indexOf('upnp:artist') !== -1) {
-          artist = deescape(
+          response.artist = deescape(
             body.split('<upnp:artist')[1].split('>')[1].split('</upnp:artist')[0]
           );
         }
 
         if(body.indexOf('<dc:title') !== -1) {
-          title = deescape(
+          response.title = deescape(
             body.split('<dc:title')[1].split('>')[1].split('</dc:title')[0]
           );
         }
 
-        response = {
-          albumArtURI: albumart,
-          title: title,
-          artist: artist,
-          album: album
-        }
-
-      } else {
-        response.albumArtURI = 'http://images.tidalhifi.com/im/im?w=750&h=750&albumid=14089987';
-        response.artist = 'Bonnie Raitt';
-        response.album = 'Slipstream';
-        response.title = 'Million Miles [Dummy Data]';
       }
       res.status(200).send(response);
     });
