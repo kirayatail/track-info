@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.13.3",
-    "openhome-devices-manager": "^0.1.2",
+    "openhome-devices-manager": "^0.1.4",
     "request": "^2.67.0"
   }
 }
