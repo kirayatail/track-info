@@ -3,6 +3,7 @@ var express = require('express');
 var request = require('request');
 var odm = require('openhome-devices-manager');
 var app = express();
+var util  = require('util');
 
 // Edit this value to point to your device name
 var deviceName = 'Main Room'
@@ -41,10 +42,9 @@ app.route('/track')
           );
         }
 
-        if(body.indexOf('upnp:album ') !== -1) {
+        if(/upnp:album[ >]/.test(body)) {
           response.album = deescape(
-            body.split('upnp:album ')[1]
-            .split('>')[1]
+            body.split(/<upnp:album(>| .*>)/)[2]
             .split('</upnp:album')[0]
           );
         }
@@ -81,6 +81,7 @@ var findDevice = function() {
   var devs = odm.getDevices();
   while(!(dev = devs.next()).done) {
     if(dev.value) {
+      console.log("Found device: " + odm.getDevice(dev.value).name);
       if(odm.getDevice(dev.value).name.indexOf(deviceName) > -1) {
         device = odm.getDevice(dev.value);
         return true;
