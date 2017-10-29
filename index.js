@@ -44,7 +44,7 @@ app.route('/track')
 
         if(/upnp:album[ >]/.test(body)) {
           response.album = deescape(
-            body.split(/<upnp:album(>| .*>)/)[2]
+            body.split(/<upnp:album(>| [^>]*>)/)[2]
             .split('</upnp:album')[0]
           );
         }
