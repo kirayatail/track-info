@@ -86,7 +86,6 @@ var findDevice = function() {
   while(!(dev = devs.next()).done) {
     if(dev.value) {
       var d = odm.getDevice(dev.value);
-      console.log("debug: ", d)
       console.log("Found device: " + odm.getDevice(dev.value).name);
       if (insensitiveEquals(odm.getDevice(dev.value).name, deviceName)) {
         device = odm.getDevice(dev.value);
