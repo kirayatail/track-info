@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "openhome-devices-manager": "^0.1.4",
+    "openhome-devices-manager": "git+https://github.com/kirayatail/openhome-monitor-service.git",
     "request": "^2.88.0"
   }
 }
