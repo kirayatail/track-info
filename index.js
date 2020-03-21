@@ -6,7 +6,7 @@ var app = express();
 var util  = require('util');
 
 // Edit this value to point to your device name
-var deviceName = 'Main Room'
+var deviceName = 'Linn Main Room'
 
 var device = {};
 
