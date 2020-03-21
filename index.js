@@ -76,13 +76,19 @@ var resizeTidal = function(url) {
   }
 }
 
+var insensitiveEquals = function(a, b) {
+  return a.toLowerCase().indexOf(b.toLowerCase()) !== -1;
+}
+
 var findDevice = function() {
   var dev;
   var devs = odm.getDevices();
   while(!(dev = devs.next()).done) {
     if(dev.value) {
+      var d = odm.getDevice(dev.value);
+      console.log("debug: ", d)
       console.log("Found device: " + odm.getDevice(dev.value).name);
-      if(odm.getDevice(dev.value).name.indexOf(deviceName) > -1) {
+      if (insensitiveEquals(odm.getDevice(dev.value).name, deviceName)) {
         device = odm.getDevice(dev.value);
         return true;
       }
