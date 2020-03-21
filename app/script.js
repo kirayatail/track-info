@@ -22,7 +22,6 @@ function update(data) {
   $('.columns-container').addClass('hide');
   if(data && (data.albumArtURI || data.album || data.artist || data.title)) {
     setTimeout(function() {
-      $('.columns-container').css('height',screen.height+'px');
       $('#albumart').attr('src', data.albumArtURI);
       $('#title').text(data.title);
       $('#artist').text(data.artist);

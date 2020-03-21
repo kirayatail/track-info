@@ -2,6 +2,7 @@ body {
   background-color: #000;
   color: #fff;
   font-family: sans-serif;
+  margin: 0;
 }
 
 p {
@@ -10,16 +11,15 @@ p {
 .columns-container {
   cursor: none;
   display: flex;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   justify-content: center;
   align-items: center;
-  transform: scale(1);
   opacity: 1;
-  transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
 }
 
 .columns-container.hide {
-  transform: scale(0.5);
   opacity: 0;
 }
 
@@ -35,7 +35,6 @@ p {
 .albumart #albumart {
   width: 600px;
   height: 600px;
-  transform: perspective(1300px) rotateY(10deg);
 }
 .column {
   margin-left: 5em;
@@ -44,5 +43,4 @@ p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  transform: perspective(1000px) rotateY(-10deg);
 }

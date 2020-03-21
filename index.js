@@ -6,7 +6,7 @@ var app = express();
 var util  = require('util');
 
 // Edit this value to point to your device name
-var deviceName = 'Main Room'
+var deviceName = 'Main room:Akurate DSM'
 
 var device = {};
 
@@ -70,7 +70,7 @@ app.use(express.static('app'));
 
 var resizeTidal = function(url) {
   if(url.indexOf('tidalhifi') !== -1) {
-    return url.split('w=250&h=250').join('w=700&h=700');
+    return url.split('w=250&h=250').join('w=600&h=600');
   } else {
     return url;
   }
